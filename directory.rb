@@ -5,7 +5,7 @@ def input_students
   #puts "We are only intaking students with Dr. titles"
   #puts "You cannot input more than 12 characters"
   @students = []
-  name = gets.chomp.capitalize
+  name = STDIN.gets.chomp.capitalize
 
   if name == ""
     exit
@@ -38,7 +38,7 @@ def input_students
       puts "Now we have #{@students.count} students"
     end
   #exercise 9, plural and singular student(s)
-    name = gets.chomp
+    name = STDIN.gets.chomp
     if !name.empty?
 
       puts "Hobby?"
@@ -82,8 +82,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -104,6 +104,7 @@ def show_students
   print_student_names
   print_footer
 end
+
 
 def process(selection)
   case selection
@@ -126,7 +127,7 @@ def interactive_menu
   @students = []
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 interactive_menu
